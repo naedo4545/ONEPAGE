@@ -420,11 +420,25 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
                     updated_at: new Date().toISOString()
                 }], {
                     onConflict: 'id'
-                });
+                })
+                .select(); // Add select to get response
                 
             if (error) {
                 console.error('Failed to save card to database:', error);
-                throw error;
+                // Try to save to localStorage as fallback
+                console.log('Falling back to localStorage...');
+                const storageKey = `cards_${userId}`;
+                const existingCards = JSON.parse(localStorage.getItem(storageKey) || '[]');
+                const updatedCards = existingCards.filter((c: any) => c.id !== card.id);
+                updatedCards.push({
+                    ...card,
+                    createdAt: card.createdAt || new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                });
+                localStorage.setItem(storageKey, JSON.stringify(updatedCards));
+                console.log('Saved to localStorage as fallback');
+            } else {
+                console.log('Successfully saved card to Supabase');
             }
         }
         
