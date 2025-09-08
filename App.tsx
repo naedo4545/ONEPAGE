@@ -223,8 +223,16 @@ const AppContent: React.FC = () => {
   const updateSavedCards = async (newCards: SavedCard[]): Promise<boolean> => {
     if (!currentUser) return false;
     try {
-        await api.saveCards(currentUser, newCards);
-        setSavedCards(newCards);
+        // Filter out any cards with invalid IDs before saving
+        const validCards = newCards.filter(card => 
+          card.id && card.id !== "1" && card.id.length > 10
+        );
+        
+        console.log('updateSavedCards - original cards:', newCards.length);
+        console.log('updateSavedCards - valid cards:', validCards.length);
+        
+        await api.saveCards(currentUser, validCards);
+        setSavedCards(validCards);
         return true;
     } catch (error) {
         console.error("Failed to save cards:", error);
@@ -245,6 +253,7 @@ const AppContent: React.FC = () => {
     
     console.log('handleSaveCard - editingCardId:', editingCardId);
     console.log('handleSaveCard - savedCards:', savedCards);
+    console.log('handleSaveCard - cardData:', JSON.stringify(cardData, null, 2));
     
     let thumbnail: string;
     // Prioritize banner image for thumbnail if it's not a video
@@ -280,7 +289,13 @@ const AppContent: React.FC = () => {
         thumbnail,
         isPublic: true, // Default to public
       };
-      success = await updateSavedCards([...savedCards, newCard]);
+      
+      // Filter out any cards with invalid IDs (like "1")
+      const validSavedCards = savedCards.filter(card => 
+        card.id && card.id !== "1" && card.id.length > 10
+      );
+      
+      success = await updateSavedCards([...validSavedCards, newCard]);
       if (success) {
         setEditingCardId(newCardId); // Set the ID so subsequent saves are updates
       }
