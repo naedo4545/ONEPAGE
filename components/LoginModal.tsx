@@ -24,7 +24,7 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
         e.preventDefault();
         setError('');
         if (!username.trim() || !password.trim()) {
-            setError(t.login.emptyFields);
+            setError(t('login.emptyFields'));
             return;
         }
         setIsLoading(true);
@@ -36,20 +36,20 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
                 if (loginSuccess) {
                     onLogin(username);
                 } else {
-                    setError(t.login.invalidCredentials);
+                    setError(t('login.invalidCredentials'));
                 }
             } else {
                 // Signup logic
                 const userExists = await api.checkUserExists(username);
                 if (userExists) {
-                    setError(t.login.usernameExists);
+                    setError(t('login.usernameExists'));
                 } else {
                     await api.createUser(username, password);
                     onLogin(username);
                 }
             }
         } catch (err) {
-            setError(t.login.unexpectedError);
+            setError(t('login.unexpectedError'));
             console.error(err);
         } finally {
             setIsLoading(false);
@@ -59,22 +59,22 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
     const howToSteps = [
         { 
             icon: 'fa-user-plus', 
-            title: t.howItWorks.signUp,
+            title: t('howItWorks.signUp'),
             description: tWithFallback('help.step1Desc', 'Create a free account to save and manage your digital business cards securely.')
         },
         { 
             icon: 'fa-palette', 
-            title: t.howItWorks.design,
+            title: t('howItWorks.design'),
             description: tWithFallback('help.step2Desc', 'Use our intuitive editor to customize every detail, from layout and colors to AI-generated images, videos, and career history.')
         },
         { 
             icon: 'fa-share-alt', 
-            title: t.howItWorks.share,
+            title: t('howItWorks.share'),
             description: tWithFallback('help.step3Desc', 'Save multiple cards to your personal hub. Share them instantly with a link or a scannable QR code.')
         },
         { 
             icon: 'fa-users', 
-            title: t.howItWorks.connect,
+            title: t('howItWorks.connect'),
             description: tWithFallback('help.step4Desc', 'Find other users, send connection requests, and build your professional circle of mutual connections.')
         },
     ];
@@ -102,34 +102,34 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
 
                     <div className="space-y-6 lg:space-y-8">
                         <div>
-                            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-4">{t.features.title}</h2>
+                            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-4">{t('features.title')}</h2>
                             <div className="space-y-3 lg:space-y-4">
                                 <div className="flex items-start gap-2 lg:gap-3">
                                     <i className="fa-solid fa-palette text-lg lg:text-2xl text-blue-500 mt-1 flex-shrink-0"></i>
                                     <div className="text-left flex-1">
-                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t.features.customDesign.title}</h3>
-                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t.features.customDesign.description}</p>
+                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t('features.customDesign.title')}</h3>
+                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t('features.customDesign.description')}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-2 lg:gap-3">
                                     <i className="fa-solid fa-share-alt text-lg lg:text-2xl text-green-500 mt-1 flex-shrink-0"></i>
                                     <div className="text-left flex-1">
-                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t.features.easySharing.title}</h3>
-                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t.features.easySharing.description}</p>
+                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t('features.easySharing.title')}</h3>
+                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t('features.easySharing.description')}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-2 lg:gap-3">
                                     <i className="fa-solid fa-users text-lg lg:text-2xl text-purple-500 mt-1 flex-shrink-0"></i>
                                     <div className="text-left flex-1">
-                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t.features.networkBuilding.title}</h3>
-                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t.features.networkBuilding.description}</p>
+                                        <h3 className="font-semibold text-sm lg:text-base text-gray-900 dark:text-white">{t('features.networkBuilding.title')}</h3>
+                                        <p className="text-xs lg:text-sm text-gray-600 dark:text-neutral-400">{t('features.networkBuilding.description')}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-4">{t.howItWorks.title}</h2>
+                            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-4">{t('howItWorks.title')}</h2>
                             <div className="flex items-center space-x-3 lg:space-x-6">
                                 {howToSteps.map((step, index) => (
                                     <React.Fragment key={step.title}>
@@ -163,29 +163,29 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
 
                     <div className="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-700 rounded-3xl shadow-2xl overflow-hidden">
                         <div className="p-8 md:p-10 flex flex-col justify-center">
-                            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">{isLoginView ? t.login.welcomeBack : t.login.createAccount}</h2>
+                            <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">{isLoginView ? t('login.welcomeBack') : t('login.createAccount')}</h2>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
-                                    <label htmlFor="username" className="block text-sm font-medium text-gray-600 dark:text-neutral-400 mb-1">{t.login.username}</label>
+                                    <label htmlFor="username" className="block text-sm font-medium text-gray-600 dark:text-neutral-400 mb-1">{t('login.username')}</label>
                                     <input
                                         type="text"
                                         id="username"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
-                                        placeholder={t.login.usernamePlaceholder}
+                                        placeholder={t('login.usernamePlaceholder')}
                                         className="w-full bg-gray-100 dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-lg shadow-sm py-2.5 px-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
                                         required
                                         autoComplete="username"
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-600 dark:text-neutral-400 mb-1">{t.login.password}</label>
+                                    <label htmlFor="password" className="block text-sm font-medium text-gray-600 dark:text-neutral-400 mb-1">{t('login.password')}</label>
                                     <input
                                         type="password"
                                         id="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        placeholder={t.login.passwordPlaceholder}
+                                        placeholder={t('login.passwordPlaceholder')}
                                         className="w-full bg-gray-100 dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-lg shadow-sm py-2.5 px-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
                                         required
                                         autoComplete={isLoginView ? "current-password" : "new-password"}
@@ -193,14 +193,14 @@ const LoginModal: React.FC<AuthScreenProps> = ({ onLogin, companyInfo }) => {
                                 </div>
                                 {error && <p className="text-sm text-red-500 text-center">{error}</p>}
                                 <button type="submit" disabled={isLoading} className="w-full px-6 py-2.5 bg-gray-900 text-white dark:bg-white dark:text-black font-semibold rounded-lg hover:bg-gray-700 dark:hover:bg-neutral-200 transition-colors mt-2 disabled:opacity-50">
-                                    {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : (isLoginView ? t.login.login : t.login.createAccount)}
+                                    {isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : (isLoginView ? t('login.login') : t('login.createAccount'))}
                                 </button>
                             </form>
 
                             <p className="text-center text-sm text-gray-600 dark:text-neutral-400 mt-6">
-                                {isLoginView ? t.login.noAccount : t.login.haveAccount}
+                                {isLoginView ? t('login.noAccount') : t('login.haveAccount')}
                                 <button onClick={() => { setIsLoginView(!isLoginView); setError(''); }} className="font-semibold text-gray-800 dark:text-white hover:underline ml-1">
-                                    {isLoginView ? t.login.signUp : t.login.login}
+                                    {isLoginView ? t('login.signUp') : t('login.login')}
                                 </button>
                             </p>
                         </div>
