@@ -6,6 +6,7 @@ import HelpContent from './hub/HelpContent';
 import FeedbackContent from './hub/FeedbackContent';
 import VideoSamplesContent from './hub/VideoSamplesContent';
 import LanguageToggle from './LanguageToggle';
+import { useLanguage } from '../contexts/LanguageContext';
 import { api } from '../services/apiService';
 
 interface HubProps {
@@ -23,6 +24,7 @@ interface HubProps {
 }
 
 const Hub: React.FC<HubProps> = ({ currentUser, cards, onCreate, onEdit, onDelete, onShare, onLogout, onTogglePrivacy, uiTheme, onToggleUiTheme, companyInfo }) => {
+    const { t } = useLanguage();
     const [activeTab, setActiveTab] = useState('myCards');
     const [requestCount, setRequestCount] = useState(0);
     const [unreadMessageCount, setUnreadMessageCount] = useState(0);
@@ -76,11 +78,11 @@ const Hub: React.FC<HubProps> = ({ currentUser, cards, onCreate, onEdit, onDelet
     );
 
     const tabs = [
-        { id: 'myCards', label: 'My Cards', icon: 'fa-id-card' },
-        { id: 'connections', label: 'Connections', icon: 'fa-users', notification: requestCount + unreadMessageCount },
-        { id: 'samples', label: 'Media Samples', icon: 'fa-film' },
-        { id: 'feedback', label: 'Feedback', icon: 'fa-comment-dots', notification: feedbackNotificationCount },
-        { id: 'help', label: 'Help & Pricing', icon: 'fa-question-circle' },
+        { id: 'myCards', label: t('hub.myCards'), icon: 'fa-id-card' },
+        { id: 'connections', label: t('hub.connections'), icon: 'fa-users', notification: requestCount + unreadMessageCount },
+        { id: 'samples', label: t('hub.mediaSamples'), icon: 'fa-film' },
+        { id: 'feedback', label: t('hub.feedback'), icon: 'fa-comment-dots', notification: feedbackNotificationCount },
+        { id: 'help', label: t('hub.helpAndPricing'), icon: 'fa-question-circle' },
     ];
 
     const isVideoThumbnail = (thumbnail: string) => thumbnail.startsWith('data:video') || /\.(mp4|webm|ogg)$/i.test(thumbnail);

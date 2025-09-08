@@ -45,6 +45,15 @@ export const ja = {
     chooseLanguage: '使用する言語を選択してください',
   },
 
+  // Hub
+  hub: {
+    myCards: 'マイカード',
+    connections: 'コネクション',
+    mediaSamples: 'メディアサンプル',
+    feedback: 'フィードバック',
+    helpAndPricing: 'ヘルプ & 価格',
+  },
+
   // Login
   login: {
     welcomeBack: 'おかえりなさい',

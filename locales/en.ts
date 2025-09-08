@@ -45,6 +45,15 @@ export const en = {
     chooseLanguage: 'Please choose your preferred language',
   },
 
+  // Hub
+  hub: {
+    myCards: 'My Cards',
+    connections: 'Connections',
+    mediaSamples: 'Media Samples',
+    feedback: 'Feedback',
+    helpAndPricing: 'Help & Pricing',
+  },
+
   // Login
   login: {
     welcomeBack: 'Welcome Back',

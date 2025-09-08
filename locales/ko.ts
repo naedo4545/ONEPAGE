@@ -45,6 +45,15 @@ export const ko = {
     chooseLanguage: '사용할 언어를 선택해주세요',
   },
 
+  // Hub
+  hub: {
+    myCards: '내 카드',
+    connections: '연결',
+    mediaSamples: '미디어 샘플',
+    feedback: '피드백',
+    helpAndPricing: '도움말 & 가격',
+  },
+
   // Login
   login: {
     welcomeBack: '다시 오신 것을 환영합니다',
