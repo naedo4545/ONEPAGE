@@ -260,7 +260,9 @@ const AppContent: React.FC = () => {
     }
     
     let success = false;
-    if (editingCardId) {
+    
+    // Force create new card if editingCardId is invalid (like "1")
+    if (editingCardId && editingCardId !== "1" && editingCardId.length > 10) {
        // Update existing card
       const updatedCards = savedCards.map(card => 
         card.id === editingCardId 
@@ -269,7 +271,7 @@ const AppContent: React.FC = () => {
       );
       success = await updateSavedCards(updatedCards);
     } else {
-      // Create new card
+      // Create new card (force new UUID)
       const newCardId = crypto.randomUUID();
       const newCard: SavedCard = {
         id: newCardId,
