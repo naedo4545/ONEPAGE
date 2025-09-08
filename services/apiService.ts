@@ -415,12 +415,15 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
         
         // Save each card to Supabase database
         for (const card of cards) {
-            console.log('Saving card:', card.id);
+            // Force generate new UUID if card.id is invalid
+            const cardId = (card.id && card.id !== "1" && card.id.length > 10) ? card.id : crypto.randomUUID();
+            
+            console.log('Saving card:', cardId, 'original id:', card.id);
             console.log('Card data structure:', JSON.stringify(card.cardData, null, 2));
             const { error } = await supabase
                 .from('business_cards')
                 .upsert([{
-                    id: card.id,
+                    id: cardId, // Use validated/generated UUID
                     user_id: authUserId, // enforce UUID from auth
                     card_data: card.cardData,
                     theme: card.theme,
