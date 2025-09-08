@@ -397,6 +397,11 @@ const clearOldData = () => {
 // Add missing saveCards function
 export const saveCards = async (userId: string, cards: SavedCard[]): Promise<void> => {
     try {
+        // Check current auth session
+        const { data: sessionData, error: sessionErr } = await supabase.auth.getSession();
+        console.log('Current session:', sessionData);
+        console.log('Session error:', sessionErr);
+        
         // Always use the authenticated Supabase user ID (UUID) for writes
         const { data: authData, error: authErr } = await supabase.auth.getUser();
         if (authErr || !authData?.user?.id) {
@@ -425,6 +430,7 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
             
             console.log('Saving card:', cardId, 'original id:', card.id);
             console.log('Card data structure:', JSON.stringify(card.cardData, null, 2));
+            // Try to bypass RLS by using service role key or direct insert
             const { error } = await supabase
                 .from('business_cards')
                 .upsert([{

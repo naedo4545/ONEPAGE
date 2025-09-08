@@ -101,21 +101,21 @@ CREATE POLICY "Users can view own profile" ON users
 CREATE POLICY "Users can update own profile" ON users
     FOR UPDATE USING (auth.uid()::text = id::text);
 
--- Business cards policies
+-- Business cards policies (수정된 버전)
 CREATE POLICY "Users can view own cards" ON business_cards
-    FOR SELECT USING (auth.uid()::text = user_id::text);
+    FOR SELECT USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can view public cards" ON business_cards
     FOR SELECT USING (is_public = true);
 
 CREATE POLICY "Users can create own cards" ON business_cards
-    FOR INSERT WITH CHECK (auth.uid()::text = user_id::text);
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
 
 CREATE POLICY "Users can update own cards" ON business_cards
-    FOR UPDATE USING (auth.uid()::text = user_id::text);
+    FOR UPDATE USING (auth.uid() = user_id);
 
 CREATE POLICY "Users can delete own cards" ON business_cards
-    FOR DELETE USING (auth.uid()::text = user_id::text);
+    FOR DELETE USING (auth.uid() = user_id);
 
 -- Feedback policies
 CREATE POLICY "Users can view own feedback" ON feedback
