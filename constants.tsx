@@ -26,18 +26,18 @@ export const getDefaultCardData = (language: Language = 'en'): BusinessCardData 
     company: 'ONEPAGE',
     bio: t.editor.sampleBio,
     contactInfo: [
-      { id: 'contact1', type: 'phone', value: '82)10-1234-5678' },
-      { id: 'contact2', type: 'email', value: 'rero45@naver.com' },
-      { id: 'contact3', type: 'address', value: t.editor.sampleAddress },
-      { id: 'contact4', type: 'website', value: 'rawstudio.kr' },
+      { id: '550e8400-e29b-41d4-a716-446655440011', type: 'phone', value: '82)10-1234-5678' },
+      { id: '550e8400-e29b-41d4-a716-446655440012', type: 'email', value: 'rero45@naver.com' },
+      { id: '550e8400-e29b-41d4-a716-446655440013', type: 'address', value: t.editor.sampleAddress },
+      { id: '550e8400-e29b-41d4-a716-446655440014', type: 'website', value: 'rawstudio.kr' },
     ],
     socialLinks: [
-      { id: 'social1', platform: 'instagram', url: 'https://instagram.com' },
-      { id: 'social2', platform: 'youtube', url: 'https://www.youtube.com/@ONEPAGE' },
+      { id: '550e8400-e29b-41d4-a716-446655440021', platform: 'instagram', url: 'https://instagram.com' },
+      { id: '550e8400-e29b-41d4-a716-446655440022', platform: 'youtube', url: 'https://www.youtube.com/@ONEPAGE' },
     ],
     careerHistory: [
-      { id: '1', title: '2D Supervisor → Colorist → Compositor', company: 'SEOULVISION', startDate: '2008', endDate: '2018', description: t.editor.sampleCareerDesc1},
-      { id: '2', title: 'CEO & Founder', company: 'ONEPAGE', startDate: '2018', endDate: 'Present', description: t.editor.sampleCareerDesc2}
+      { id: '550e8400-e29b-41d4-a716-446655440001', title: '2D Supervisor → Colorist → Compositor', company: 'SEOULVISION', startDate: '2008', endDate: '2018', description: t.editor.sampleCareerDesc1},
+      { id: '550e8400-e29b-41d4-a716-446655440002', title: 'CEO & Founder', company: 'ONEPAGE', startDate: '2018', endDate: 'Present', description: t.editor.sampleCareerDesc2}
     ],
     fontFamily: 'system-ui, sans-serif',
   // Name
