@@ -408,6 +408,7 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
         // Save each card to Supabase database
         for (const card of cards) {
             console.log('Saving card:', card.id);
+            console.log('Card data structure:', JSON.stringify(card.cardData, null, 2));
             const { error } = await supabase
                 .from('business_cards')
                 .upsert([{
@@ -425,19 +426,7 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
                 
             if (error) {
                 console.error('Failed to save card to database:', error);
-                // Try to save to localStorage as fallback
-                console.log('Falling back to localStorage...');
-                const storageKey = `cards_${userId}`;
-                const existingCards = JSON.parse(localStorage.getItem(storageKey) || '[]');
-                const updatedCards = existingCards.filter((c: any) => c.id !== card.id);
-                updatedCards.push({
-                    ...card,
-                    createdAt: card.createdAt || new Date().toISOString(),
-                    updatedAt: new Date().toISOString()
-                });
-                localStorage.setItem(storageKey, JSON.stringify(updatedCards));
-                console.log('Saved to localStorage as fallback');
-                // Don't throw error, continue with localStorage
+                throw error; // Re-throw the error to stop the process
             } else {
                 console.log('Successfully saved card to Supabase');
             }
