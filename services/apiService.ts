@@ -57,15 +57,20 @@ const saveToStorage = (key: string, value: any) => {
 export const auth = {
     async login(username: string, password: string): Promise<{ success: boolean; user?: any; error?: string }> {
         try {
-            // For demo purposes, we'll use a simple username/password system
-            // In production, you'd want to implement proper authentication
-            const { data, error } = await authService.signIn(username + '@example.com', password);
-            
-            if (error) {
-                return { success: false, error: error.message };
+            // Temporary demo mode - bypass Supabase auth for now
+            // TODO: Implement proper Supabase authentication
+            if (username && password) {
+                return { 
+                    success: true, 
+                    user: { 
+                        id: crypto.randomUUID(),
+                        email: username + '@demo.com',
+                        user_metadata: { username }
+                    } 
+                };
             }
             
-            return { success: true, user: data.user };
+            return { success: false, error: 'Username and password required' };
         } catch (error) {
             return { success: false, error: 'Login failed' };
         }
@@ -73,19 +78,20 @@ export const auth = {
 
     async signup(username: string, password: string): Promise<{ success: boolean; user?: any; error?: string }> {
         try {
-            const { data, error } = await authService.signUp(username + '@example.com', password, username);
-            
-            if (error) {
-                return { success: false, error: error.message };
+            // Temporary demo mode - bypass Supabase auth for now
+            // TODO: Implement proper Supabase authentication
+            if (username && password) {
+                return { 
+                    success: true, 
+                    user: { 
+                        id: crypto.randomUUID(),
+                        email: username + '@demo.com',
+                        user_metadata: { username }
+                    } 
+                };
             }
             
-            // Create user profile
-            await userService.createUser({
-                username,
-                email: username + '@example.com'
-            });
-            
-            return { success: true, user: data.user };
+            return { success: false, error: 'Username and password required' };
         } catch (error) {
             return { success: false, error: 'Signup failed' };
         }
