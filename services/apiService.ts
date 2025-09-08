@@ -401,9 +401,14 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
         const { data: authData, error: authErr } = await supabase.auth.getUser();
         if (authErr || !authData?.user?.id) {
             console.error('Not authenticated with Supabase. Cannot save cards.');
+            console.error('Auth error:', authErr);
+            console.error('Auth data:', authData);
             throw authErr || new Error('No authenticated user');
         }
         const authUserId = authData.user.id; // UUID
+        
+        console.log('Auth user ID:', authUserId);
+        console.log('Auth user email:', authData.user.email);
 
         console.log('Attempting to save cards to Supabase:', { passedUserId: userId, authUserId, cardCount: cards.length });
         
