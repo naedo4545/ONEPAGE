@@ -397,8 +397,17 @@ const clearOldData = () => {
 // Add missing saveCards function
 export const saveCards = async (userId: string, cards: SavedCard[]): Promise<void> => {
     try {
+        console.log('Attempting to save cards to Supabase:', { userId, cardCount: cards.length });
+        
+        // Check if Supabase is properly configured
+        if (!supabase) {
+            console.error('Supabase client not initialized');
+            throw new Error('Supabase client not initialized');
+        }
+        
         // Save each card to Supabase database
         for (const card of cards) {
+            console.log('Saving card:', card.id);
             const { error } = await supabase
                 .from('business_cards')
                 .upsert([{
@@ -418,6 +427,8 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
                 throw error;
             }
         }
+        
+        console.log('Successfully saved all cards to Supabase');
     } catch (error) {
         console.error('Error saving cards:', error);
         throw error;

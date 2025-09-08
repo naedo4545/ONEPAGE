@@ -5,6 +5,7 @@ import Connections from './Connections';
 import HelpContent from './hub/HelpContent';
 import FeedbackContent from './hub/FeedbackContent';
 import VideoSamplesContent from './hub/VideoSamplesContent';
+import LanguageToggle from './LanguageToggle';
 import { api } from '../services/apiService';
 
 interface HubProps {
@@ -95,6 +96,7 @@ const Hub: React.FC<HubProps> = ({ currentUser, cards, onCreate, onEdit, onDelet
                     </div>
                 </div>
                  <div className="flex items-center gap-3 shrink-0">
+                    <LanguageToggle />
                     <button onClick={onToggleUiTheme} title={`Switch to ${uiTheme === 'dark' ? 'light' : 'dark'} mode`} className="bg-gray-200 dark:bg-neutral-800 text-gray-800 dark:text-white font-semibold py-2 px-3 rounded-lg hover:bg-gray-300 dark:hover:bg-neutral-700 transition-colors text-sm">
                         {uiTheme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
                     </button>
