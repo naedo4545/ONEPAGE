@@ -426,6 +426,29 @@ const AppContent: React.FC = () => {
     setCardData(prev => ({ ...prev, careerHistory: newHistory }));
   }, []);
 
+  const handleGenerateBio = useCallback(async () => {
+    if (!currentUser || !userMetadata || userMetadata.aiUses <= 0) {
+      alert('AI 사용 횟수가 부족합니다.');
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const response = await api.generateBio(cardData.name, cardData.title, cardData.company);
+      if (response.success && response.bio) {
+        setCardData(prev => ({ ...prev, bio: response.bio }));
+        await decrementAiUses();
+      } else {
+        alert('AI 생성을 실패했습니다. 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('Failed to generate bio:', error);
+      alert('AI 생성을 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsGenerating(false);
+    }
+  }, [currentUser, userMetadata, cardData.name, cardData.title, cardData.company, decrementAiUses]);
+
   
   const handleDownload = async (format: 'png') => {
     if (!cardPreviewRef.current) return;
