@@ -397,7 +397,15 @@ const clearOldData = () => {
 // Add missing saveCards function
 export const saveCards = async (userId: string, cards: SavedCard[]): Promise<void> => {
     try {
-        console.log('Attempting to save cards to Supabase:', { userId, cardCount: cards.length });
+        // Always use the authenticated Supabase user ID (UUID) for writes
+        const { data: authData, error: authErr } = await supabase.auth.getUser();
+        if (authErr || !authData?.user?.id) {
+            console.error('Not authenticated with Supabase. Cannot save cards.');
+            throw authErr || new Error('No authenticated user');
+        }
+        const authUserId = authData.user.id; // UUID
+
+        console.log('Attempting to save cards to Supabase:', { passedUserId: userId, authUserId, cardCount: cards.length });
         
         // Check if Supabase is properly configured
         if (!supabase) {
@@ -413,7 +421,7 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
                 .from('business_cards')
                 .upsert([{
                     id: card.id,
-                    user_id: userId,
+                    user_id: authUserId, // enforce UUID from auth
                     card_data: card.cardData,
                     theme: card.theme,
                     is_public: card.isPublic,
@@ -465,7 +473,15 @@ export const cards = {
 
     async getCardsByUser(userId: string): Promise<SavedCard[]> {
         try {
-            const { data, error } = await cardService.getCardsByUser(userId);
+            // Always read using the authenticated user UUID
+            const { data: authData, error: authErr } = await supabase.auth.getUser();
+            if (authErr || !authData?.user?.id) {
+                console.error('Not authenticated with Supabase. Cannot fetch cards.');
+                throw authErr || new Error('No authenticated user');
+            }
+            const authUserId = authData.user.id;
+
+            const { data, error } = await cardService.getCardsByUser(authUserId);
             
             if (error) throw error;
             
