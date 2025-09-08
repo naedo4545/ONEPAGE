@@ -291,7 +291,23 @@ const AppContent: React.FC = () => {
   };
 
   const handleCreateNewCard = () => {
-    setCardData(DEFAULT_CARD_DATA);
+    // Create a deep copy of DEFAULT_CARD_DATA with new UUIDs
+    const newCardData = {
+      ...DEFAULT_CARD_DATA,
+      contactInfo: DEFAULT_CARD_DATA.contactInfo.map(contact => ({
+        ...contact,
+        id: crypto.randomUUID()
+      })),
+      socialLinks: DEFAULT_CARD_DATA.socialLinks.map(social => ({
+        ...social,
+        id: crypto.randomUUID()
+      })),
+      careerHistory: DEFAULT_CARD_DATA.careerHistory.map(career => ({
+        ...career,
+        id: crypto.randomUUID()
+      }))
+    };
+    setCardData(newCardData);
     setTheme(THEMES.Arctic);
     setEditingCardId(null);
     setAppMode('editor');
