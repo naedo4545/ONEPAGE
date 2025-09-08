@@ -93,8 +93,8 @@ const Hub: React.FC<HubProps> = ({ currentUser, cards, onCreate, onEdit, onDelet
                 <div className="flex items-center gap-4">
                     {companyInfo?.logo && <img src={companyInfo.logo} alt={companyInfo.name} className="h-12 w-auto" />}
                     <div>
-                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{companyInfo?.name || 'My Hub'}</h1>
-                        <p className="text-sm text-gray-500 dark:text-neutral-400">{companyInfo?.slogan || `Welcome, ${currentUser}!`}</p>
+                        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{companyInfo?.name || t('hub.title')}</h1>
+                        <p className="text-sm text-gray-500 dark:text-neutral-400">{companyInfo?.slogan || t('hub.welcome', { user: currentUser })}</p>
                     </div>
                 </div>
                  <div className="flex items-center gap-3 shrink-0">
@@ -103,7 +103,7 @@ const Hub: React.FC<HubProps> = ({ currentUser, cards, onCreate, onEdit, onDelet
                         {uiTheme === 'dark' ? <i className="fa-solid fa-sun"></i> : <i className="fa-solid fa-moon"></i>}
                     </button>
                     <button onClick={onLogout} className="bg-gray-200 dark:bg-neutral-800 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-300 dark:hover:bg-neutral-700 transition-colors text-sm">
-                        Logout
+                        {t('common.logout')}
                     </button>
                 </div>
             </header>

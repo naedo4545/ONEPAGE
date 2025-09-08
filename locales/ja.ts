@@ -47,6 +47,8 @@ export const ja = {
 
   // Hub
   hub: {
+    title: 'マイハブ',
+    welcome: 'ようこそ、{user}さん！',
     myCards: 'マイカード',
     connections: 'コネクション',
     mediaSamples: 'メディアサンプル',

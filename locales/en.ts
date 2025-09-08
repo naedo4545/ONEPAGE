@@ -47,6 +47,8 @@ export const en = {
 
   // Hub
   hub: {
+    title: 'My Hub',
+    welcome: 'Welcome, {user}!',
     myCards: 'My Cards',
     connections: 'Connections',
     mediaSamples: 'Media Samples',

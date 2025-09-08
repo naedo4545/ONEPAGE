@@ -8,8 +8,8 @@ export type Language = 'ko' | 'en' | 'ja';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
-  tWithFallback: (key: string, fallback: string) => string;
+  t: (key: string, variables?: Record<string, string>) => string;
+  tWithFallback: (key: string, fallback: string, variables?: Record<string, string>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -38,7 +38,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
   };
 
-  const t = (key: string): string => {
+  const t = (key: string, variables?: Record<string, string>): string => {
     const keys = key.split('.');
     let value: any = translations[language];
     
@@ -50,11 +50,20 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       }
     }
     
-    return typeof value === 'string' ? value : key;
+    let result = typeof value === 'string' ? value : key;
+    
+    // Replace variables if provided
+    if (variables) {
+      Object.entries(variables).forEach(([varKey, varValue]) => {
+        result = result.replace(new RegExp(`{${varKey}}`, 'g'), varValue);
+      });
+    }
+    
+    return result;
   };
 
-  const tWithFallback = (key: string, fallback: string): string => {
-    const translation = t(key);
+  const tWithFallback = (key: string, fallback: string, variables?: Record<string, string>): string => {
+    const translation = t(key, variables);
     return translation !== key ? translation : fallback;
   };
 

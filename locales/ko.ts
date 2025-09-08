@@ -47,6 +47,8 @@ export const ko = {
 
   // Hub
   hub: {
+    title: '내 허브',
+    welcome: '환영합니다, {user}님!',
     myCards: '내 카드',
     connections: '연결',
     mediaSamples: '미디어 샘플',
