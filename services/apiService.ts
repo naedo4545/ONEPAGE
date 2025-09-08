@@ -404,27 +404,17 @@ const clearOldData = () => {
 // Add missing saveCards function
 export const saveCards = async (userId: string, cards: SavedCard[]): Promise<void> => {
     try {
-        // Save each card to Supabase database
-        for (const card of cards) {
-            const { error } = await supabase
-                .from('business_cards')
-                .upsert([{
-                    id: card.id,
-                    user_id: userId,
-                    card_data: card.cardData,
-                    theme: card.theme,
-                    is_public: card.isPublic,
-                    created_at: card.createdAt || new Date().toISOString(),
-                    updated_at: new Date().toISOString()
-                }], {
-                    onConflict: 'id'
-                });
-                
-            if (error) {
-                console.error('Failed to save card to database:', error);
-                throw error;
-            }
-        }
+        // Save cards to localStorage for demo mode
+        // TODO: Implement proper Supabase database saving
+        const storageKey = `cards_${userId}`;
+        const cardsWithTimestamps = cards.map(card => ({
+            ...card,
+            createdAt: card.createdAt || new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        }));
+        
+        localStorage.setItem(storageKey, JSON.stringify(cardsWithTimestamps));
+        console.log(`Saved ${cards.length} cards for user ${userId}`);
     } catch (error) {
         console.error('Error saving cards:', error);
         throw error;
@@ -457,19 +447,13 @@ export const cards = {
 
     async getCardsByUser(userId: string): Promise<SavedCard[]> {
         try {
-            const { data, error } = await cardService.getCardsByUser(userId);
-            
-            if (error) throw error;
-            
-            return data.map(card => ({
-                id: card.id,
-                userId: card.user_id,
-                cardData: card.card_data,
-                theme: card.theme,
-                isPublic: card.is_public,
-                createdAt: card.created_at,
-                thumbnail: '' // You might want to generate thumbnails
-            }));
+            // Use localStorage for demo mode
+            // TODO: Implement proper Supabase database fetching
+            const storedCards = localStorage.getItem(`cards_${userId}`);
+            if (storedCards) {
+                return JSON.parse(storedCards);
+            }
+            return [];
         } catch (error) {
             console.error('Error fetching cards:', error);
             return [];
