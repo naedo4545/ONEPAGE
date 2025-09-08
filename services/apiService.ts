@@ -469,15 +469,17 @@ export const cards = {
             
             if (error) throw error;
             
-            return data.map(card => ({
-                id: card.id,
-                userId: card.user_id,
-                cardData: card.card_data,
-                theme: card.theme,
-                isPublic: card.is_public,
-                createdAt: card.created_at,
-                thumbnail: '' // You might want to generate thumbnails
-            }));
+            return data
+                .filter(card => card.id && card.id !== "1" && card.id.length > 10) // Filter out invalid IDs
+                .map(card => ({
+                    id: card.id,
+                    userId: card.user_id,
+                    cardData: card.card_data,
+                    theme: card.theme,
+                    isPublic: card.is_public,
+                    createdAt: card.created_at,
+                    thumbnail: '' // You might want to generate thumbnails
+                }));
         } catch (error) {
             console.error('Error fetching cards:', error);
             return [];
@@ -490,16 +492,18 @@ export const cards = {
             
             if (error) throw error;
             
-            return data.map(card => ({
-                id: card.id,
-                userId: card.user_id,
-                cardData: card.card_data,
-                theme: card.theme,
-                isPublic: card.is_public,
-                createdAt: card.created_at,
-                thumbnail: '',
-                username: card.users?.username
-            }));
+            return data
+                .filter(card => card.id && card.id !== "1" && card.id.length > 10) // Filter out invalid IDs
+                .map(card => ({
+                    id: card.id,
+                    userId: card.user_id,
+                    cardData: card.card_data,
+                    theme: card.theme,
+                    isPublic: card.is_public,
+                    createdAt: card.created_at,
+                    thumbnail: '',
+                    username: card.users?.username
+                }));
         } catch (error) {
             console.error('Error fetching public cards:', error);
             return [];
