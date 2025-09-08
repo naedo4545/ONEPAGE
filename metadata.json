@@ -1,0 +1,5 @@
+{
+  "name": "ONEPAGE",
+  "description": "A modern web application that allows users to create and customize their own digital business cards. It features a live preview, multiple layouts, image uploads, and options to download the card as an image or PDF.",
+  "requestFramePermissions": []
+}
