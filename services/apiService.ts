@@ -437,6 +437,7 @@ export const saveCards = async (userId: string, cards: SavedCard[]): Promise<voi
                 });
                 localStorage.setItem(storageKey, JSON.stringify(updatedCards));
                 console.log('Saved to localStorage as fallback');
+                // Don't throw error, continue with localStorage
             } else {
                 console.log('Successfully saved card to Supabase');
             }
