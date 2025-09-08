@@ -243,6 +243,9 @@ const AppContent: React.FC = () => {
   const handleSaveCard = async () => {
     if (!cardPreviewRef.current) return;
     
+    console.log('handleSaveCard - editingCardId:', editingCardId);
+    console.log('handleSaveCard - savedCards:', savedCards);
+    
     let thumbnail: string;
     // Prioritize banner image for thumbnail if it's not a video
     if (cardData.bannerImage.src && !cardData.bannerImage.src.startsWith('data:video')) {
