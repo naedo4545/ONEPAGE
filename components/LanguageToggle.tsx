@@ -7,9 +7,9 @@ const LanguageToggle: React.FC = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
-    { code: 'ko' as Language, name: t.language.korean, flag: '🇰🇷' },
-    { code: 'en' as Language, name: t.language.english, flag: '🇺🇸' },
-    { code: 'ja' as Language, name: t.language.japanese, flag: '🇯🇵' },
+    { code: 'ko' as Language, name: t('language.korean'), flag: '🇰🇷' },
+    { code: 'en' as Language, name: t('language.english'), flag: '🇺🇸' },
+    { code: 'ja' as Language, name: t('language.japanese'), flag: '🇯🇵' },
   ];
 
   const currentLanguage = languages.find(lang => lang.code === language);
@@ -38,7 +38,7 @@ const LanguageToggle: React.FC = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 bg-gray-100 dark:bg-neutral-800 border border-gray-300 dark:border-neutral-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-neutral-700 transition-colors"
-        title={t.language.selectLanguage}
+        title={t('language.selectLanguage')}
       >
         <span className="text-lg">{currentLanguage?.flag}</span>
         <span className="hidden sm:inline">{currentLanguage?.name}</span>

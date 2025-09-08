@@ -10,9 +10,9 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onLanguageSelect, s
   const { language, setLanguage, t } = useLanguage();
 
   const languages = [
-    { code: 'ko' as Language, name: t.language.korean, flag: '🇰🇷' },
-    { code: 'en' as Language, name: t.language.english, flag: '🇺🇸' },
-    { code: 'ja' as Language, name: t.language.japanese, flag: '🇯🇵' },
+    { code: 'ko' as Language, name: t('language.korean'), flag: '🇰🇷' },
+    { code: 'en' as Language, name: t('language.english'), flag: '🇺🇸' },
+    { code: 'ja' as Language, name: t('language.japanese'), flag: '🇯🇵' },
   ];
 
   const handleLanguageSelect = (lang: Language) => {
@@ -27,10 +27,10 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ onLanguageSelect, s
           <div className="text-center mb-8">
             <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">ONEPAGE</h1>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {t.language.selectLanguage}
+              {t('language.selectLanguage')}
             </h2>
             <p className="text-gray-600 dark:text-neutral-400">
-              {t.language.chooseLanguage}
+              {t('language.chooseLanguage')}
             </p>
           </div>
 
